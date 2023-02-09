@@ -1,28 +1,19 @@
 <template>
   <v-container>
-    <v-row align="start" no-gutters style="height: 150px">
-      <v-col cols="12">
-        <v-card class="text-center">
-          <v-card-title class="headline"> Bye Bye </v-card-title>
-          <v-card-text>
-            <h2>Finalizar sessão?</h2>
-            <p class="ma-4">
-              <v-btn :loading="loading" color="#6CA858" class="mr-4" x-large block @click="logout">
-                SIM
-              </v-btn>
-              <v-btn
-                class="my-2"
-                block
-                color="#6CA858"
-                variant="outlined"
-                :to="{ name: 'base-home' }">
-                Home
-              </v-btn>
-            </p>
-          </v-card-text>
-        </v-card>
-      </v-col>
-    </v-row>
+    <h2 class="text-center">Finalizar sessão?</h2>
+    <p class="ma-4">
+      <v-btn :loading="loading" color="#6CA858" class="white-text mr-4" x-large block @click="logout">
+        Sim
+      </v-btn>
+      <v-btn
+        class="my-2"
+        block
+        color="#6CA858"
+        variant="outlined"
+        :to="{ name: 'base-home' }">
+        Home
+      </v-btn>
+    </p>
   </v-container>
 </template>
 
@@ -58,3 +49,9 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+  .white-text {
+    color: white;
+  }
+</style>
