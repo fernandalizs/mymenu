@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="showValue" persistent max-width="960px">
     <v-card class="pa-5">
-      <v-card-title class="text-h5"> Opps! Algo deu errado </v-card-title>
+      <v-card-title class="text-h5"> Ops! Algo deu errado </v-card-title>
       <v-card-text>
         {{ message }}
       </v-card-text>
@@ -40,3 +40,9 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+  .v-btn {
+    color: white;
+  }
+</style>
