@@ -2,7 +2,7 @@
   <v-card>
     <v-card-text>
       <div>#{{ task.id }}</div>
-      <p class="ma-0 pa-0 text-h5 text--primary">
+      <p class="ma-0 pa-0 text-h5 text--#6CA858">
         {{ task.description }}
       </p>
     </v-card-text>

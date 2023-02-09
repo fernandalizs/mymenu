@@ -31,7 +31,7 @@ export default {
     },
     snackbarCollors() {
       const typeCollor = {
-        success: "primary",
+        success: "#6CA858",
         danger: "red",
         warning: "orange",
       }
