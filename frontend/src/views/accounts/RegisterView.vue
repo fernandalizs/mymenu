@@ -6,6 +6,7 @@
         <v-form>
           <v-text-field
             v-model="name"
+            color="#6CA858"
             label="Name"
             prepend-inner-icon="mdi-account-outline"
             variant="outlined"
@@ -14,6 +15,7 @@
 
           <v-text-field
             v-model="username"
+            color="#6CA858"
             label="E-Mail"
             prepend-inner-icon="mdi-email-outline"
             variant="outlined"
@@ -22,6 +24,7 @@
 
           <v-text-field
             v-model="password"
+            color="#6CA858"
             type="password"
             label="Password"
             prepend-inner-icon="mdi-lock-outline"
@@ -31,6 +34,7 @@
 
           <v-text-field
             type="password"
+            color="#6CA858"
             label="Confirm Password"
             prepend-inner-icon="mdi-lock-outline"
             variant="outlined"
