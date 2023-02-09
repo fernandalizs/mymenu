@@ -2,8 +2,16 @@
   <v-container>
     <v-row align="center" class="mt-10" no-gutters>
       <v-col cols="12" sm="6" offset-sm="3">
-        <h1 class="pa-2">Login</h1>
+        <h1 class="pa-2">Register</h1>
         <v-form>
+          <v-text-field
+            v-model="name"
+            label="Name"
+            prepend-inner-icon="mdi-account-outline"
+            variant="outlined"
+            required
+            @keyup.enter="login"></v-text-field>
+
           <v-text-field
             v-model="username"
             label="E-Mail"
@@ -21,6 +29,14 @@
             required
             @keyup.enter="login"></v-text-field>
 
+          <v-text-field
+            type="password"
+            label="Confirm Password"
+            prepend-inner-icon="mdi-lock-outline"
+            variant="outlined"
+            required
+            @keyup.enter="login"></v-text-field>
+
           <v-btn
             class="v-btn-white"
             block
@@ -29,18 +45,9 @@
             color="#6CA858"
             append-icon="mdi-chevron-right"
             @click="login">
-            Login
-          </v-btn>
-          <v-btn
-            class="my-2 v-btn-white"
-            block
-            size="large"
-            rounded="pill"
-            color="#6CA858"
-            append-icon="mdi-chevron-right"
-            :to="{name: 'accounts-register'}">
             Register
           </v-btn>
+
           <v-btn
             class="my-2"
             block
@@ -73,6 +80,7 @@ export default {
     return {
       loading: false,
       valid: false,
+      name: "",
       username: "",
       password: "",
       error: false,

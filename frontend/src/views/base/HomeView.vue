@@ -2,21 +2,11 @@
   <v-container class="fill-height">
     <v-responsive class="d-flex align-center text-center fill-height">
       <v-img contain height="300" src="@/assets/MyMenuLogo.png" />
-      <h1 class="text-h2 font-weight-bold">My Menu</h1>
+      <h1 class="text-h3 font-weight-bold">My Menu</h1>
+      <h2 class="font-weight-thin">My Menu is an app where you can save your daily meals and favorite recipes 🍽️</h2>
       <div class="py-6" />
       <v-row class="d-flex align-center justify-center">
         <v-col cols="auto">
-          <v-btn
-            color="#6CA858"
-            :to="{ name: 'base-getstarted' }"
-            min-width="228"
-            rel="noopener noreferrer"
-            size="x-large"
-            variant="flat"
-            class="my-4">
-            <v-icon icon="mdi-speedometer" size="large" start />
-            Get Started
-          </v-btn>
           <v-btn
             v-if="!loggedUser"
             color="#6CA858"
@@ -68,3 +58,9 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+  .v-btn {
+    color: white;
+  }
+</style>
