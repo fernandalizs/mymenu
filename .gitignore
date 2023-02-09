@@ -7,5 +7,6 @@ htmlcov/
 .idea
 /mymenu.log
 /static
+node_modules
 
 /apimock/node_modules
