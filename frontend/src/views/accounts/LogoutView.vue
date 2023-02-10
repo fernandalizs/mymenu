@@ -1,9 +1,9 @@
 <template>
   <v-container>
-    <h2 class="text-center">Finalizar sessão?</h2>
+    <h2 class="text-center">Sign out?</h2>
     <p class="ma-4">
       <v-btn :loading="loading" color="#6CA858" class="white-text mr-4" x-large block @click="logout">
-        Sim
+        Yez
       </v-btn>
       <v-btn
         class="my-2"
