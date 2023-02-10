@@ -2,8 +2,9 @@
   <v-snackbar
     v-model="showSnackbar"
     :color="snackbarCollors"
+    timeout="1500"
     multi-line
-    location="center"
+    rounded
     elevation="12"
     content-class="snackbar-ft-size">
     {{ snackbarMessage }}
@@ -42,7 +43,8 @@ export default {
 </script>
 
 <style>
-.v-snackbar .snackbar-ft-size .v-snackbar__wrapper .v-snackbar__content {
-  font-size: 1.1rem;
-}
-</style>
+  .v-snackbar .snackbar-ft-size .v-snackbar__wrapper .v-snackbar__content {
+    font-size: 1.1rem;
+    color: white;
+  }
+  </style>
