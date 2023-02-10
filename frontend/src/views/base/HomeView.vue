@@ -15,7 +15,7 @@
             size="x-large"
             variant="flat"
             :to="{ name: 'accounts-login' }"
-            class="my-4">
+            class="my-4 mr-2">
             <v-icon icon="mdi-account-arrow-right-outline" size="large" start />
             Login
           </v-btn>
@@ -38,9 +38,9 @@
             size="x-large"
             variant="flat"
             :to="{ name: 'tasks-list' }"
-            class="my-4">
-            <v-icon icon="mdi-folder-star-multiple" size="large" start />
-            tarefas
+            class="my-4 ml-2">
+            <v-icon icon="mdi-silverware-variant" size="large" start />
+              Recipes
           </v-btn>
         </v-col>
       </v-row>
