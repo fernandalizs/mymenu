@@ -1,27 +1,26 @@
 <template>
-  <v-app-bar>
-    <v-app-bar-title>{{ title }}</v-app-bar-title>
-    <template #append>
-      <v-btn class="px-5 text-grey text-center">
-        <span v-if="user" class="pl-4">
-          <v-icon>mdi-account</v-icon>
-          {{ user.username }}
-        </span>
-      </v-btn>
-      <v-btn icon="mdi-heart" :to="{ name: 'base-home' }"></v-btn>
-      <v-btn icon="mdi-magnify"></v-btn>
-      <v-btn
-        :prepend-icon="theme === 'light' ? 'mdi-weather-sunny' : 'mdi-weather-night'"
-        @click.stop="themeClick"></v-btn>
-      <v-btn icon="mdi-dots-vertical">
-        <v-icon icon="mdi-dots-vertical" />
-        <v-menu activator="parent">
-          <v-list>
-            <v-list-item :to="{ name: 'accounts-logout' }"> Sair </v-list-item>
-          </v-list>
-        </v-menu>
-      </v-btn>
-    </template>
+  <v-app-bar
+    :color="theme === 'light' ? 'white' : 'black'"
+  >
+    <v-app-bar-title class="pl-4">
+      <v-img height="55" width="55" src="@/assets/my_menu_logo.png"/>
+    </v-app-bar-title>
+    <v-spacer></v-spacer>
+    <v-btn color="#507444" icon="mdi-home" :to="{ name: 'tasks-list' }"></v-btn>
+    <v-btn color="#507444" icon="mdi-star" :to="{ name: 'favorites-recipes' }"></v-btn>
+    <v-btn
+      color="#507444"
+      :icon="theme === 'light' ? 'mdi-weather-sunny' : 'mdi-weather-night'"
+      @click.stop="themeClick"></v-btn>
+    <v-btn color="#507444" icon="mdi-dots-vertical">
+      <v-icon icon="mdi-dots-vertical" />
+      <v-menu activator="parent">
+        <v-list>
+          <v-list-item :to="{ name: 'accounts-logout' }">
+            <v-icon color="#507444">mdi-logout</v-icon> Sair </v-list-item>
+        </v-list>
+      </v-menu>
+    </v-btn>
   </v-app-bar>
 </template>
 
@@ -54,3 +53,9 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+  .v-list-item {
+    color: #507444;
+  }
+</style>
