@@ -3,20 +3,22 @@
     <v-row align="center" class="mt-10" no-gutters>
       <v-col cols="12" sm="6" offset-sm="3">
         <h1 class="pa-2">Register</h1>
-        <v-form>
+        <v-form ref="form" v-model="valid" lazy-validation>
           <v-text-field
             v-model="name"
             color="#6CA858"
             label="Name"
+            :rules="nameRules"
             prepend-inner-icon="mdi-account-outline"
             variant="outlined"
             required
             @keyup.enter="login"></v-text-field>
 
           <v-text-field
-            v-model="username"
+            v-model="email"
             color="#6CA858"
             label="E-Mail"
+            :rules="emailRules"
             prepend-inner-icon="mdi-email-outline"
             variant="outlined"
             required
@@ -27,23 +29,35 @@
             color="#6CA858"
             type="password"
             label="Password"
+            :rules="passwordRules"
             prepend-inner-icon="mdi-lock-outline"
             variant="outlined"
             required
             @keyup.enter="login"></v-text-field>
 
           <v-text-field
+            v-model="confirmPassword"
             type="password"
             color="#6CA858"
             label="Confirm Password"
+            :rules="[required, min8, matchingPasswords]"
             prepend-inner-icon="mdi-lock-outline"
             variant="outlined"
             required
             @keyup.enter="login"></v-text-field>
 
+          <v-checkbox
+            v-model="checkbox"
+            :rules="[(v) => !!v || 'You must agree to continue!']"
+            label="Do you agree with the terms of use?"
+            required
+          ></v-checkbox>
+
           <v-btn
             class="v-btn-white"
             block
+            :loading="loading"
+            :disabled="!valid"
             size="large"
             rounded="pill"
             color="#6CA858"
@@ -83,10 +97,22 @@ export default {
   data: () => {
     return {
       loading: false,
-      valid: false,
+      valid: true,
       name: "",
-      username: "",
-      password: "",
+      nameRules: [(v) => !!v || "Name is required"],
+      email: "",
+      emailRules: [
+      (v) => !!v || "E-mail is required",
+      (v) => /.+@.+\..+/.test(v) || "Invalid e-mail",
+    ],
+      password: null,
+      passwordRules: [
+      (v) => !!v || "Password is required",
+      (v) =>
+        (v && v.length >= 8) || "The password must contain at least 8 characters",
+    ],
+      confirmPassword: "",
+      checkbox: false,
       error: false,
       visible: false,
     }
@@ -99,7 +125,7 @@ export default {
     AccountsApi.whoami().then((response) => {
       if (response.authenticated) {
         this.saveLoggedUser(response.user)
-        this.appStore.showSnackbar("Usuário já logado", "warning")
+        this.appStore.showSnackbar("User already logged in", "warning")
         this.showTasks()
       }
     })
@@ -107,10 +133,10 @@ export default {
   methods: {
     login() {
       this.loading = true
-      AccountsApi.login(this.username, this.password)
+      AccountsApi.login(this.email, this.password)
         .then((response) => {
           if (!response) {
-            this.appStore.showSnackbar("Usuário ou senha invalida", "danger")
+            this.appStore.showSnackbar("Invalid email or password", "danger")
             return
           }
           this.saveLoggedUser(response.user)
@@ -131,6 +157,27 @@ export default {
     showTasks() {
       this.$router.push({ name: "tasks-list" })
       console.log("--> tasks")
+    },
+    matchingPasswords() {
+      if (this.password === this.confirmPassword) {
+        return true;
+      } else {
+        return "Passwords do not match";
+      }
+    },
+    required() {
+      if (this.confirmPassword) {
+        return true;
+      } else {
+        return "Password confirmation is required";
+      }
+    },
+    min8() {
+      if (this.confirmPassword.length >= 8) {
+        return true;
+      } else {
+        return "The password must contain at least 8 characters";
+      }
     },
   },
 }

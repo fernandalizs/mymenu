@@ -3,11 +3,12 @@
     <v-row align="center" class="mt-10" no-gutters>
       <v-col cols="12" sm="6" offset-sm="3">
         <h1 class="pa-2">Login</h1>
-        <v-form>
+        <v-form ref="form" v-model="valid">
           <v-text-field
-            v-model="username"
+            v-model="email"
             color="#6CA858"
             label="E-Mail"
+            :rules="emailRules"
             prepend-inner-icon="mdi-email-outline"
             variant="outlined"
             required
@@ -18,6 +19,7 @@
             color="#6CA858"
             type="password"
             label="Password"
+            :rules="passwordRules"
             prepend-inner-icon="mdi-lock-outline"
             variant="outlined"
             required
@@ -26,6 +28,8 @@
           <v-btn
             class="v-btn-white"
             block
+            :loading="loading"
+            :disabled="!valid"
             size="large"
             rounded="pill"
             color="#6CA858"
@@ -74,9 +78,14 @@ export default {
   data: () => {
     return {
       loading: false,
-      valid: false,
-      username: "",
+      valid: true,
+      email: "",
+      emailRules: [
+      (v) => !!v || "E-mail is required",
+      (v) => /.+@.+\..+/.test(v) || "Invalid e-mail",
+    ],
       password: "",
+      passwordRules: [(v) => !!v || "Password is required"],
       error: false,
       visible: false,
     }
@@ -89,7 +98,7 @@ export default {
     AccountsApi.whoami().then((response) => {
       if (response.authenticated) {
         this.saveLoggedUser(response.user)
-        this.appStore.showSnackbar("Usuário já logado", "warning")
+        this.appStore.showSnackbar("User already logged in", "warning")
         this.showTasks()
       }
     })
@@ -97,10 +106,10 @@ export default {
   methods: {
     login() {
       this.loading = true
-      AccountsApi.login(this.username, this.password)
+      AccountsApi.login(this.email, this.password)
         .then((response) => {
           if (!response) {
-            this.appStore.showSnackbar("Usuário ou senha invalida", "danger")
+            this.appStore.showSnackbar("Invalid email or password", "danger")
             return
           }
           this.saveLoggedUser(response.user)
