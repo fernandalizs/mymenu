@@ -1,5 +1,5 @@
 # My Menu
-My Menu is an app where you can save your daily meals and favorite recipes 🍽️
+My Menu is an app where you can save your daily meals and favorite recipes at the same place 🍽️
 ## Requirements
 - Node v14
 - Vue-cli
