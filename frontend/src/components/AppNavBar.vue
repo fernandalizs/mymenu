@@ -1,5 +1,6 @@
 <template>
   <v-app-bar
+    style="position: fixed"
     :color="theme === 'light' ? 'white' : 'black'"
   >
     <v-app-bar-title class="pl-4">
