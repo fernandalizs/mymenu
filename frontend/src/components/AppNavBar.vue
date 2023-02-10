@@ -4,7 +4,7 @@
     :color="theme === 'light' ? 'white' : 'black'"
   >
     <v-app-bar-title class="pl-4">
-      <v-img height="55" width="55" src="@/assets/my_menu_logo.png"/>
+      <v-img height="55" width="55" src="@/assets/MyMenuLogoIcon.png"/>
     </v-app-bar-title>
     <v-spacer></v-spacer>
     <v-btn color="#507444" icon="mdi-home" :to="{ name: 'tasks-list' }"></v-btn>

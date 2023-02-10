@@ -1,7 +1,7 @@
 <template>
   <v-container class="fill-height">
     <v-responsive class="d-flex align-center text-center fill-height">
-      <v-img contain height="300" src="@/assets/MyMenuLogo.png" />
+      <v-img contain height="300" src="@/assets/MyMenuLogoNome.png" />
       <h1 class="text-h3 font-weight-bold">My Menu</h1>
       <h2 class="font-weight-thin">My Menu is an app where you can save your daily meals and favorite recipes 🍽️</h2>
       <div class="py-6" />
