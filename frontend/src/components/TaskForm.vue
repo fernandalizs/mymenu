@@ -7,7 +7,8 @@
           :label="formLabel"
           required
           outlined
-          append-icon="fa-pen"
+          clearable
+          prepend-inner-icon="mdi-silverware-variant"
           @keyup.enter="addNewTask" />
       </v-card-text>
     </v-card>
