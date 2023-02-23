@@ -2,13 +2,11 @@
   <v-container class="fill-height">
     <v-row justify="center" align="center">
       <v-col cols="12">
-        <v-card>
-          <v-card-title class="headline"> Tasks </v-card-title>
-        </v-card>
+        <h1>Meals</h1>
       </v-col>
 
       <v-col cols="12">
-        <task-form :form-label="'Nova Tarefa'" @new-task="addNewTask" />
+        <task-form :form-label="'New Meal'" @new-task="addNewTask" />
       </v-col>
 
       <v-col v-for="item in items" :key="item.id" cols="12">
@@ -54,7 +52,6 @@ export default {
         this.appStore.showSnackbar(`Nova tarefa adicionada #${task.id}`)
         this.getTasks()
         this.loading = false
-        console.log("oi")
       })
     },
   },
@@ -62,7 +59,7 @@ export default {
 </script>
 
 <style scoped>
-.done {
-  text-decoration: line-through;
-}
+  h1 {
+    color: #507444;
+  }
 </style>
