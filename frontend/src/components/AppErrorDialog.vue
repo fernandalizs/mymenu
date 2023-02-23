@@ -1,13 +1,13 @@
 <template>
   <v-dialog v-model="showValue" persistent max-width="960px">
     <v-card class="pa-5">
-      <v-card-title class="text-h5"> Ops! Algo deu errado </v-card-title>
+      <v-card-title class="text-h5"> Ops! Something went wrong </v-card-title>
       <v-card-text>
         {{ message }}
       </v-card-text>
       <v-card-actions>
         <v-spacer />
-        <v-btn color="#6CA858" text @click="close"> Fechar </v-btn>
+        <v-btn color="#6CA858" text @click="close"> Close </v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
