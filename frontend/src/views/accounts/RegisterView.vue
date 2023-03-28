@@ -5,14 +5,14 @@
         <h1 class="pa-2">Register</h1>
         <v-form ref="form" v-model="valid" lazy-validation>
           <v-text-field
-            v-model="name"
+            v-model="username"
             color="#6CA858"
-            label="Name"
+            label="Username"
             :rules="nameRules"
             prepend-inner-icon="mdi-account-outline"
             variant="outlined"
             required
-            @keyup.enter="login"></v-text-field>
+            @keyup.enter="register"></v-text-field>
 
           <v-text-field
             v-model="email"
@@ -22,7 +22,7 @@
             prepend-inner-icon="mdi-email-outline"
             variant="outlined"
             required
-            @keyup.enter="login"></v-text-field>
+            @keyup.enter="register"></v-text-field>
 
           <v-text-field
             v-model="password"
@@ -33,7 +33,7 @@
             prepend-inner-icon="mdi-lock-outline"
             variant="outlined"
             required
-            @keyup.enter="login"></v-text-field>
+            @keyup.enter="register"></v-text-field>
 
           <v-text-field
             v-model="confirmPassword"
@@ -44,12 +44,13 @@
             prepend-inner-icon="mdi-lock-outline"
             variant="outlined"
             required
-            @keyup.enter="login"></v-text-field>
+            @keyup.enter="register"></v-text-field>
 
           <v-checkbox
             v-model="checkbox"
             :rules="[(v) => !!v || 'You must agree to continue!']"
             label="Do you agree with the terms of use?"
+            color="#6CA858"
             required
           ></v-checkbox>
 
@@ -62,7 +63,7 @@
             rounded="pill"
             color="#6CA858"
             append-icon="mdi-chevron-right"
-            @click="login">
+            @click.enter="register">
             Register
           </v-btn>
 
@@ -94,29 +95,27 @@ export default {
     const accountsStore = useAccountsStore()
     return { appStore, accountsStore }
   },
-  data: () => {
-    return {
-      loading: false,
-      valid: true,
-      name: "",
-      nameRules: [(v) => !!v || "Name is required"],
-      email: "",
-      emailRules: [
-      (v) => !!v || "E-mail is required",
-      (v) => /.+@.+\..+/.test(v) || "Invalid e-mail",
-    ],
-      password: null,
-      passwordRules: [
-      (v) => !!v || "Password is required",
-      (v) =>
-        (v && v.length >= 8) || "The password must contain at least 8 characters",
-    ],
-      confirmPassword: "",
-      checkbox: false,
-      error: false,
-      visible: false,
-    }
-  },
+  data: () => ({
+    loading: false,
+    valid: false,
+    username: "",
+    nameRules: [(v) => !!v || "Username is required"],
+    email: "",
+    emailRules: [
+    (v) => !!v || "E-mail is required",
+    (v) => /.+@.+\..+/.test(v) || "Invalid e-mail",
+  ],
+    password: null,
+    passwordRules: [
+    (v) => !!v || "Password is required",
+    (v) =>
+      (v && v.length >= 8) || "The password must contain at least 8 characters",
+  ],
+    confirmPassword: "",
+    checkbox: false,
+    error: false,
+    visible: false,
+  }),
   computed: {
     ...mapState(useAccountsStore, ["loggedUser"]),
   },
@@ -125,15 +124,15 @@ export default {
     AccountsApi.whoami().then((response) => {
       if (response.authenticated) {
         this.saveLoggedUser(response.user)
-        this.appStore.showSnackbar("User already logged in", "warning")
+        this.$router.push({name: 'base-home'})
         this.showTasks()
       }
     })
   },
   methods: {
-    login() {
+    register() {
       this.loading = true
-      AccountsApi.login(this.email, this.password)
+        AccountsApi.signup(this.username, this.email, this.password)
         .then((response) => {
           if (!response) {
             this.appStore.showSnackbar("Invalid email or password", "danger")
@@ -150,13 +149,7 @@ export default {
       this.error = !user
       if (user) {
         this.accountsStore.setLoggedUser(user)
-        this.visible = false
-        console.log("logged")
       }
-    },
-    showTasks() {
-      this.$router.push({ name: "tasks-list" })
-      console.log("--> tasks")
     },
     matchingPasswords() {
       if (this.password === this.confirmPassword) {

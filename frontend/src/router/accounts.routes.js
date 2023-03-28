@@ -10,14 +10,14 @@ export default [
     component: EmptyLayout,
     children: [
       {
-        path: "login",
-        name: "accounts-login",
-        component: LoginView,
-      },
-      {
         path: "register",
         name: "accounts-register",
         component: RegisterView,
+      },
+      {
+        path: "login",
+        name: "accounts-login",
+        component: LoginView,
       },
       {
         path: "logout",

@@ -5,10 +5,10 @@ function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-function getUser(username) {
-  const user = data.users.find((user) => user.username === username);
+function getUser(email) {
+  const user = data.users.find((user) => user.email === email);
   if (!user) {
-    console.log("login invalido: ", username);
+    console.log("login invalido: ", email);
     return;
   }
   return user;
@@ -25,9 +25,25 @@ function getUserBySessionId(sessionid) {
 
 module.exports = {
   login: (req, res) => {
-    const { username, password } = req.body;
+    const { email, password } = req.body;
     sleep(800).then(() => {
-      let user = getUser(username);
+      let user = getUser(email);
+      if (!user || !password) {
+        console.log("3");
+        res.status(200).end();
+        return;
+      }
+      user.sessionid = crypto.randomUUID();
+      res.cookie("sessionid", user.sessionid, { httpOnly: true }).send({
+        user: user,
+        authenticated: true,
+      });
+    });
+  },
+  signup: (req, res) => {
+    const { email, password } = req.body;
+    sleep(800).then(() => {
+      let user = getUser(email);
       if (!user || !password) {
         console.log("3");
         res.status(200).end();
@@ -71,10 +87,9 @@ module.exports = {
     }
 
     if (!loggedUser) {
-      res.status(401).end("Header de segurança não encontrado");
+      res.status(401).end("Header not found");
       return false;
     }
-    console.log("recuperando sessão de ", loggedUser.username);
     return loggedUser;
   },
 };

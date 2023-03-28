@@ -1,6 +1,6 @@
-# coding: utf-8
-from django.http import JsonResponse
 from django.contrib import auth
+from django.contrib.auth.models import User
+from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 
 from ..tasks.service import log_svc
@@ -8,9 +8,9 @@ from ..tasks.service import log_svc
 
 @csrf_exempt
 def login(request):
-    username = request.POST["username"]
+    email = request.POST["email"]
     password = request.POST["password"]
-    user = auth.authenticate(username=username, password=password)
+    user = auth.authenticate(email=email, password=password)
     user_dict = None
     if user is not None:
         if user.is_active:
@@ -55,3 +55,16 @@ def _user2dict(user):
         },
     }
     return d
+
+def new_user(request):
+    email = request.POST["email"]
+    password = request.POST["password"]
+    new_user = User.objects.new_user(email, '', password)
+    user = auth.authenticate(email=email, password=password)
+    user_dict = None
+    if user is not None:
+        if user.is_active:
+            auth.login(request, user)
+            log_svc.log_login(request.user)
+            user_dict = _user2dict(user)
+    return JsonResponse(user_dict, safe=False)
